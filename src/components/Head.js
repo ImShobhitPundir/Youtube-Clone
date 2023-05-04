@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { SEARCH_SUGGESTION_API } from "../utils/constants";
 import { cacheResult } from "../utils/searchSlice";
+import { Link } from "react-router-dom";
 
 const Head = () => {
   const dispatch = useDispatch();
@@ -71,7 +72,11 @@ const Head = () => {
               setSearchQuery(e.target.value);
             }}
             onFocus={() => setSuggestionBox(true)}
-            onBlur={() => setSuggestionBox(false)}
+            onBlur={() => {
+              setTimeout(() => {
+                setSuggestionBox(false);
+              }, 200);
+            }}
           />
           <button className="border border-gray-400 px-5 py-2 rounded-r-full bg-gray-100">
             <img src={SEARCH} alt="search" className="h-5" />
@@ -82,9 +87,11 @@ const Head = () => {
           {suggestionBox && (
             <ul className="bg-white w-[27rem] shadow-lg border border-gray-300 rounded-lg">
               {suggestionResult?.map((suggestion, index) => (
-                <li className="px-3 py-1 hover:bg-gray-200" key={index}>
-                  {suggestion}
-                </li>
+                <Link to={"/result?q=" + suggestion}>
+                  <li className="px-3 py-1 hover:bg-gray-200" key={index}>
+                    {suggestion}
+                  </li>
+                </Link>
               ))}
             </ul>
           )}

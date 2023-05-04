@@ -11,6 +11,7 @@ import {
 } from "../utils/constants";
 import Comments from "./Comments";
 import CommentContainer from "./CommentContainer";
+import LiveChat from "./LiveChat";
 
 const WatchPage = () => {
   const [searchParam, setSearchParams] = useSearchParams();
@@ -26,14 +27,13 @@ const WatchPage = () => {
     getSingleVideo();
     getRelatedVideos();
     getVideoComments();
-  
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     getSingleVideo();
     getRelatedVideos();
     getVideoComments();
-  },[videoId])
+  }, [videoId]);
 
   const getRelatedVideos = async () => {
     const data = await fetch(VIDEO_API_URL_RELATED);
@@ -47,17 +47,17 @@ const WatchPage = () => {
     //console.log(json.items[0]);
     setVideo(json.items[0]);
   };
-  const getVideoComments = async() =>{
+  const getVideoComments = async () => {
     const data = await fetch(VIDEO_API_URL_COMMENT + videoId);
     const json = await data.json();
     //console.log(json.items);
     setComments(json.items);
-  }
+  };
 
   if (!video) return null;
 
   return (
-    <div className="grid grid-flow-col px-20">
+    <div className="grid grid-flow-col px-20 w-full ">
       <div className="col-span-8 p-2 max-w-[660px]">
         <iframe
           width="660"
@@ -127,15 +127,22 @@ const WatchPage = () => {
           }
         </div> */}
         <div>
-          <CommentContainer/>
+          <CommentContainer />
         </div>
       </div>
-      <div className="col-span-4 px-10 p-4">
+      <div className="col-span-4 px-10 p-4 w-full">
+      <LiveChat />
+      
         {/* <h2 className="font-bold">Related Videos</h2> */}
+
         {relatedVideo?.map((video) => (
-          <RelatedVideo info={video} key={video.id} handleQuery={(id)=>{
-            setSearchParams(id);
-          }}/>
+          <RelatedVideo
+            info={video}
+            key={video.id}
+            handleQuery={(id) => {
+              setSearchParams(id);
+            }}
+          />
         ))}
       </div>
     </div>
