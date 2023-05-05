@@ -45,7 +45,7 @@ const LiveChat = () => {
       </h5>
       <div className="border border-gray-300 w-full h-[320px] p-2 overflow-y-auto flex flex-col-reverse">
         {messages.map((msg, index) => (
-          <LiveChatCard name={msg.name} message={msg.message} />
+          <LiveChatCard name={msg.name} message={msg.message} key={index}/>
         ))}
       </div>
       <div className="border border-gray-300 rounded-b-lg p-2">

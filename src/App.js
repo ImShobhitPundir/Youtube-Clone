@@ -3,10 +3,16 @@ import Body from "./components/Body";
 import Head from "./components/Head";
 import { Provider } from "react-redux";
 import store from "./utils/store";
-import { BrowserRouter, createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  BrowserRouter,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import MainCointainer from "./components/MainCointainer";
 import WatchPage from "./components/WatchPage";
 import SearchResult from "./components/SearchResult";
+import DemoUseMemo from "./components/DemoUseMemo";
+import DemoUseRef from "./components/DemoUseRef";
 
 const appRouter = createBrowserRouter([
   {
@@ -24,6 +30,15 @@ const appRouter = createBrowserRouter([
       {
         path: "result",
         element: <SearchResult />,
+      },
+      {
+        path: "demo",
+        element: (
+          <>
+            <DemoUseMemo />
+            <DemoUseRef />
+          </>
+        ),
       },
     ],
   },

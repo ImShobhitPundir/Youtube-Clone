@@ -118,17 +118,17 @@ const WatchPage = () => {
             )}
           </div>
         </div>
-        {/* <div>
+        <div>
           <h5>{comments?.length} Comments</h5>
           {
             comments?.map((comment)=>(
               <Comments info={comment} key={comment.id}/>
             ))
           }
-        </div> */}
-        <div>
+        </div> 
+        {/* <div>
           <CommentContainer />
-        </div>
+        </div> */}
       </div>
       <div className="col-span-4 px-10 p-4 w-full">
       <LiveChat />

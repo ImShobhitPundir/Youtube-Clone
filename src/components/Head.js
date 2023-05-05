@@ -8,6 +8,7 @@ import { toggleMenu } from "../utils/appSlice";
 import { SEARCH_SUGGESTION_API } from "../utils/constants";
 import { cacheResult } from "../utils/searchSlice";
 import { Link } from "react-router-dom";
+import { MdSearch } from "react-icons/md";
 
 const Head = () => {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ const Head = () => {
     const data = await fetch(SEARCH_SUGGESTION_API + searchQuery);
     const json = await data.json();
     setSuggestionResult(json[1]);
-    console.log("query - " + searchQuery);
+    // console.log("query - " + searchQuery);
     dispatch(
       cacheResult({
         [searchQuery]: json[1],
@@ -56,9 +57,9 @@ const Head = () => {
           className="h-8 cursor-pointer"
           onClick={() => handleToggleMenu()}
         />
-        <a href="/">
+        <Link to="/">
           <img src={LOGO} alt="logo" className="h-7 ml-4" />
-        </a>
+        </Link>
       </div>
 
       <div className="col-span-10 px-10">
@@ -78,8 +79,8 @@ const Head = () => {
               }, 200);
             }}
           />
-          <button className="border border-gray-400 px-5 py-2 rounded-r-full bg-gray-100">
-            <img src={SEARCH} alt="search" className="h-5" />
+          <button className="px-5 p-2 border border-gray-400 rounded-r-full bg-gray-100 ">
+          Search
           </button>
         </div>
 
@@ -87,8 +88,8 @@ const Head = () => {
           {suggestionBox && (
             <ul className="bg-white w-[27rem] shadow-lg border border-gray-300 rounded-lg">
               {suggestionResult?.map((suggestion, index) => (
-                <Link to={"/result?q=" + suggestion}>
-                  <li className="px-3 py-1 hover:bg-gray-200" key={index}>
+                <Link key={index} to={"/result?q=" + suggestion} onClick={()=>setSearchQuery(suggestion)}>
+                  <li className="px-3 py-1 hover:bg-gray-200" >
                     {suggestion}
                   </li>
                 </Link>
